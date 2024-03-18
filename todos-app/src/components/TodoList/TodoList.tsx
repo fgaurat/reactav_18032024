@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Todo } from '../../core/Todo'
+import useFetchTodos from '../../hooks/useFetchTodos'
+import TodoRow from './TodoRow'
+
+
 
 function TodoList() {
-    console.log(import.meta.env.VITE_TODOS_URL)
-    const [todos, setTodos] = useState<Todo[]>([
-       
-    ])
-
+    const {todos,setTodos,isLoading} = useFetchTodos()
+    
+    const doDelete= (todo:Todo)=>{
+        console.log(todo)
+    }
   return (
     <>
     <h2>TodoList</h2>
 
+    {isLoading && <p>Chargement ...</p>}
+    
+    {!isLoading && 
     <table className="table">
         <thead>
         <tr>
@@ -22,18 +29,12 @@ function TodoList() {
         </thead>
         <tbody>
         {todos.map( (todo:Todo) =>
-
-            <tr key={crypto.randomUUID()}>
-                <td>{todo.id}</td>
-                <td>{todo.title}</td>
-                <td>{todo.completed}</td>
-                <td></td>
-            </tr>
+        <TodoRow todo={todo} doDelete={doDelete} key={todo.id}/>
 
         )}
         </tbody>
 
-    </table>
+    </table>}
 
     </>
   )
