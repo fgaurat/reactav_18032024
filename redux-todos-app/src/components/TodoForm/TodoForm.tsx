@@ -1,17 +1,19 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Todo } from "../../core/Todo";
-import useSaveTodo from "../../hooks/useSaveTodo";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store";
+import { saveTodo } from "../../features/todoList/todoListSlice";
 
 function TodoForm() {
+  const dispatch = useDispatch<AppDispatch>()
 
-  const {saveTodo,isLoading} = useSaveTodo()  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Todo>();
 
-  const onSubmit: SubmitHandler<Todo> = async (data) => await saveTodo(data);
+  const onSubmit: SubmitHandler<Todo> = async (data:Todo) => dispatch(saveTodo(data));
 
   return (
     <>
@@ -27,7 +29,7 @@ function TodoForm() {
         <input className="form-check-input" id="completed" type="checkbox" {...register("completed")} />
         <label className="form-check-label" htmlFor="completed">Completed ?</label>
         </div>
-        {!isLoading && <input type="submit" value="Ok" className="btn btn-primary"/>}
+        <input type="submit" value="Ok" className="btn btn-primary"/>
       </form>
     </>
   );

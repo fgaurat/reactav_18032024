@@ -25,10 +25,27 @@ export const deleteTodo = createAsyncThunk(
     return todo;
   }
 );
+
+
 export const deleteAndReloadTodo = createAsyncThunk(
   "todos/deleteAndReloadTodo",
   async (todo: Todo, thunkAPI: any) => {
     await service.deleteTodo(todo);
+    thunkAPI.dispatch(fetchTodoList());
+  }
+);
+
+export const saveTodo = createAsyncThunk(
+  "todos/save",
+  async (todo: Todo) => {
+    const newTodo = await service.saveTodo(todo);
+    return newTodo;
+  }
+);
+export const saveAndReloadTodo = createAsyncThunk(
+  "todos/saveAndReloadTodo",
+  async (todo: Todo,thunkAPI:any) => {
+    await service.saveTodo(todo);
     thunkAPI.dispatch(fetchTodoList());
   }
 );
@@ -49,6 +66,12 @@ export const todoListSlice = createSlice({
         deleteTodo.fulfilled,
         (state: TodoListState, action: PayloadAction<Todo>) => {
           state.todos = state.todos.filter((t) => t.id !== action.payload.id);
+        }
+      )
+      .addCase(
+        saveTodo.fulfilled,
+        (state: TodoListState, action: PayloadAction<Todo>) => {
+          state.todos.push(action.payload)
         }
       );
   },
