@@ -1,38 +1,34 @@
-import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Todo } from "../../core/Todo";
+import useSaveTodo from "../../hooks/useSaveTodo";
 
 function TodoForm() {
-  
-    // const [title, setTitle] = useState("Todo 01");
-    // const [completed, setCompleted] = useState(false);
-    const [form,setForm] = useState({
-        title:"",
-        completed:false
-    })
-    // const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    //     setTitle(e.target.value)
-    // }
-    // const onChangeCompleted = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    //     setCompleted(e.target.checked)
-    // }
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        setForm({...form,[name]: value})
-        console.log(form)
-    }
+  const {saveTodo,isLoading} = useSaveTodo()  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Todo>();
 
-    return (
+  const onSubmit: SubmitHandler<Todo> = async (data) => await saveTodo(data);
+
+  return (
     <>
       <h1>TodoForm</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+        <label htmlFor="title" className="form-label">Title</label>
+          <input className="form-control" type="text" id="title" {...register("title", { required: true })} />
+            {errors.title && <span>Title is required</span>}
+        </div>
 
-      {/* <input type="text" value={title} onChange={onChangeTitle}/>
-
-      <input type="checkbox" checked={completed} onChange={onChangeCompleted}/> */}
-      <input type="text" value={form.title} onChange={onChange} name="title"/>
-
-      <input type="checkbox" checked={form.completed} onChange={onChange} name="completed"/>
+        <div className="mb-3 form-check">
+        <input className="form-check-input" id="completed" type="checkbox" {...register("completed")} />
+        <label className="form-check-label" htmlFor="completed">Completed ?</label>
+        </div>
+        {!isLoading && <input type="submit" value="Ok" className="btn btn-primary"/>}
+      </form>
     </>
   );
 }
