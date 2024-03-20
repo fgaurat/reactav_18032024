@@ -7,16 +7,33 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.51.1",
-    "v": "^0.3.0"
+    "react-hook-form": "^7.51.1"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.2.23",
+    "@playwright/test": "^1.42.1",
+    "@storybook/addon-essentials": "^8.0.2",
+    "@storybook/addon-interactions": "^8.0.2",
+    "@storybook/addon-links": "^8.0.2",
+    "@storybook/addon-onboarding": "^8.0.2",
+    "@storybook/blocks": "^8.0.2",
+    "@storybook/react": "^8.0.2",
+    "@storybook/react-vite": "^8.0.2",
+    "@storybook/test": "^8.0.2",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.11.30",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -25,7 +42,12 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-storybook": "^0.8.0",
+    "jsdom": "^24.0.0",
+    "msw": "^2.2.9",
+    "storybook": "^8.0.2",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6"
+    "vite": "^5.1.6",
+    "vitest": "^1.4.0"
   }
 }

@@ -1,14 +1,29 @@
 import { Todo } from '../../core/Todo'
 import TodoRow from './TodoRow'
 
-interface TodoListProps{
+export interface TodoListProps{
+  /**
+   * Array of todos
+   */
   todos:Todo[]
+  /**
+   * Delete handler
+   */
   doDelete:(todo:Todo)=>void
+  /**
+   * Loading flag
+   */
   isLoadingFetch:boolean
+  /**
+   * Delete flag
+   */
+
   isLoadingDelete:boolean
 
 }
-
+/**
+ * TodoList !
+ */
 function TodoList({todos,doDelete,isLoadingFetch,isLoadingDelete}:TodoListProps) {
   return (
     <>

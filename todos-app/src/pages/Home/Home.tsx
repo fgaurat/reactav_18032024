@@ -1,3 +1,4 @@
+import HOCCompletedTodoList from "../../components/HOCCompletedTodoList"
 import TodoForm from "../../components/TodoForm"
 import TodoList from "../../components/TodoList"
 import { Todo } from "../../core/Todo"
@@ -17,6 +18,8 @@ function Home() {
       setTodos(t)
   }
 
+  const CompletedTodoList = HOCCompletedTodoList(TodoList)
+
   return (
     <>
     <div className="container">
@@ -24,7 +27,11 @@ function Home() {
         <h1>Home</h1>
       </div>
       <div className="row">
-        <div className="col"><TodoList todos={todos} doDelete={doDelete} isLoadingFetch={isLoadingFetch} isLoadingDelete={isLoadingDelete}/></div>
+        <div className="col">
+          {/* <TodoList todos={todos} doDelete={doDelete} isLoadingFetch={isLoadingFetch} isLoadingDelete={isLoadingDelete}/> */}
+          <CompletedTodoList todos={todos} doDelete={doDelete} isLoadingFetch={isLoadingFetch} isLoadingDelete={isLoadingDelete}/>
+
+        </div>
         <div className="col"><TodoForm/></div>
       </div>
         
