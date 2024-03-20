@@ -1,15 +1,21 @@
+import React, { useEffect, useState } from 'react'
 import { Todo } from '../../core/Todo'
+import useFetchTodos from '../../hooks/useFetchTodos'
 import TodoRow from './TodoRow'
+import useDeleteTodo from '../../hooks/useDeleteTodo'
 
-interface TodoListProps{
-  todos:Todo[]
-  doDelete:(todo:Todo)=>void
-  isLoadingFetch:boolean
-  isLoadingDelete:boolean
 
-}
 
-function TodoList({todos,doDelete,isLoadingFetch,isLoadingDelete}:TodoListProps) {
+function TodoList() {
+    const {todos,setTodos,isLoading:isLoadingFetch} = useFetchTodos()
+    const {deleteTodo,isLoading:isLoadingDelete} = useDeleteTodo()
+
+    
+    const doDelete= async (todo:Todo)=>{
+        await deleteTodo(todo)
+        const t = todos.filter(o => o.id !==todo.id )
+        setTodos(t)
+    }
   return (
     <>
     <h2>TodoList</h2>
