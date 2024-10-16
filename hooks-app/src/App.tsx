@@ -5,6 +5,8 @@ import UseMemo from "./components/UseMemo";
 import PureComponent01 from "./components/PureComponent01";
 import PureComponent02 from "./components/PureComponent02";
 import UseRef from "./components/UseRef";
+import UseTransition from "./components/UseTransition";
+import UseDeferredValue from "./components/UseDeferredValue";
 
 function App() {
   console.log("Render app");
@@ -66,6 +68,10 @@ function App() {
       <UseRef ref={componentRef}/>
       <button onClick={()=>clickComponent()}>clickComponent</button>
       <button onClick={()=>clickComponentFocus()}>clickComponentFocus</button>
+      <hr />
+      <UseTransition/>
+      <hr />
+      <UseDeferredValue/>
     </>
   );
 }
